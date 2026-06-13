@@ -73,9 +73,6 @@ pipeline {
         }
 
         stage('Run Sanity Automation Tests') {
-            when {
-                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
-            }
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/mahasweta2412/OpenCartFramework.git'
