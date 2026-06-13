@@ -3,6 +3,7 @@ pipeline {
 
     tools {
         maven 'maven'
+        jdk 'jdk21'
     }
 
     stages {
@@ -28,6 +29,10 @@ pipeline {
 
         stage('Regression Automation Tests') {
             steps {
+				bat "java -version"
+                bat "javac -version"
+                bat "mvn -version"
+				
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/mahasweta2412/OpenCartFramework.git'
                     bat "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/testng_regression.xml -Denv=qa"
